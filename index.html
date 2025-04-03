@@ -74,10 +74,19 @@
 
         drawPlayer()
         drawSquares()
+
         if (rightPressed) {
-          playerX += 7
+          if (playerX + playerSize < canvas.width) {
+            playerX += 7
+          } else {
+            playerX = canvas.width - playerSize
+          }
         } else if (leftPressed) {
-          playerX -= 7
+          if (playerX > 0) {
+            playerX -= 7
+          } else {
+            playerX = 0
+          }
         }
       }
 
