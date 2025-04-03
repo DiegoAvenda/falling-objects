@@ -14,12 +14,33 @@
       let rightPressed = false
       let leftPressed = false
       playerX = canvas.width / 2
-
       const playerSize = 50
 
-      ctx.beginPath()
-      ctx.strokeRect(0, 0, canvas.width, canvas.height)
-      ctx.closePath()
+      const squares = []
+
+      for (let i = 0; i < 5; i++) {
+        squares.push({
+          x: Math.random() * (canvas.width - playerSize),
+          y: Math.random() * (canvas.height - playerSize),
+          size: playerSize,
+        })
+      }
+
+      function drawSquares() {
+        squares.forEach((square) => {
+          ctx.beginPath()
+          ctx.rect(square.x, square.y, square.size, square.size)
+          ctx.fillStyle = "blue"
+          ctx.fill()
+          ctx.closePath()
+
+          square.y += 1
+          if (square.y > canvas.height) {
+            square.y = 0 - square.size
+            square.x = Math.random() * (canvas.width - playerSize)
+          }
+        })
+      }
 
       function drawPlayer() {
         ctx.beginPath()
@@ -36,8 +57,13 @@
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        drawPlayer()
 
+        ctx.beginPath()
+        ctx.strokeRect(0, 0, canvas.width, canvas.height)
+        ctx.closePath()
+
+        drawPlayer()
+        drawSquares()
         if (rightPressed) {
           playerX += 7
         } else if (leftPressed) {
