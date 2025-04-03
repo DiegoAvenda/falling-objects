@@ -39,6 +39,15 @@
             square.y = 0 - square.size
             square.x = Math.random() * (canvas.width - playerSize)
           }
+
+          if (
+            playerX < square.x + square.size &&
+            playerX + playerSize > square.x &&
+            canvas.height - playerSize - 5 < square.y + square.size
+          ) {
+            alert("Game Over")
+            document.location.reload()
+          }
         })
       }
 
@@ -70,6 +79,7 @@
           playerX -= 7
         }
       }
+
       setInterval(draw, 10)
 
       document.addEventListener("keydown", keyDownHandler, false)
